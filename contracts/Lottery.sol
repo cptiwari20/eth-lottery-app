@@ -30,4 +30,8 @@ contract Lottery {
        return uint(keccak256(block.difficulty, now, players));
     }
 
+    function getPlayers() public returns(address[]) {
+        return players;
+    }
+
 }
