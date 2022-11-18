@@ -22,6 +22,7 @@ const deploy = async () => {
                 from: getAccounts[0],
                 gas: '1000000'
             });
+            console.log(interface)
             console.log('Deployed to the address == ', result.options.address)
         //stop the provider engine
         provider.engine.stop();
