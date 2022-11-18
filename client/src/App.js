@@ -9,6 +9,7 @@ function App() {
   const [players, setPlayers] =  useState([])
   const [value, setValue] =  useState(0)
   const [message, setMessage] =  useState('')
+  const [pickMessage, setPickMessage] =  useState('')
 
   
   useEffect(() => {
@@ -39,6 +40,19 @@ function App() {
     }
 
   }
+  const handlePickWinner = async () => {
+    const accounts = await web3.eth.getAccounts();
+    try {
+      setPickMessage('Sending your transaction...')
+      await lottery.methods.pickWinner().send({
+        from: accounts[0]
+      });
+      setPickMessage('Winner has been selected! and Amount has been transferred!')
+      
+    } catch (error) {
+      setPickMessage(error.message)
+    }
+  }
 
 
 
@@ -60,7 +74,12 @@ function App() {
 
       <hr />
       <h2>{message}</h2>
+      <hr />
+      <h3>Pick Winner :  <button type='button' onClick={handlePickWinner}>Pick</button></h3>
 
+
+
+      <h2>{pickMessage}</h2>
     </div>
   );
 }
